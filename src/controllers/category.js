@@ -23,16 +23,24 @@ exports. getByName = async (req, res) => {
 
 exports. create = async (req, res) => {
     try {
-        const category = new Category({
+        //if existes a category with the same name
+        const category = await Category.findOne({ name: req.body.name });
+        if (category) {
+            return res.status(400).json({ message: 'Category already exists' });
+        }
+        const newCategory = new Category({
             name: req.body.name,
             description: req.body.description
         });
-        await category.save();
-        res.json({ message: 'Category created successfully' });
+        const savedCategory = await newCategory.save();
+        res.json(savedCategory);
     } catch (error) {
         res.json({ message: error });
     }
 }
+
+
+        
 
 exports. update = async (req, res) => {
     try {

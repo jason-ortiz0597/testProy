@@ -12,20 +12,17 @@ exports.getAll = (req, res) => {
 }
 
 exports.create = (req, res) => {
-    const product = new product({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        category: req.body.category,
-        subCategory: req.body.subCategory
-    });
-    product.save((err, product) => {
+    const newProduct = new product(req.body);
+    newProduct.save((err, product) => {
         if (err) {
             res.send(err);
         }
         res.json(product);
-    }).populate('category').populate('subCategory');
+    }
+    ).populate('category').populate('subCategory');
 }
+
+
 
 exports.getByName = (req, res) => {
     product.find({ name: req.params.name })
