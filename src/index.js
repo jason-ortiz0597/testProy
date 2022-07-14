@@ -14,6 +14,12 @@ const subcategoriaRutas = require('./routes/ProductoRoutes/Subcategoria2');
 const claseRutas = require('./routes/ProductoRoutes/Clase2');
 const productoRutas = require('./routes/ProductoRoutes/Producto2');
 
+//use cors
+const cors = require('cors');
+
+
+
+
 
 
 // database
@@ -25,6 +31,8 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 //!------------------------------------------------------
 app.use('/api/category', categoryRoute);
